@@ -47,6 +47,7 @@
     android:layout_height="wrap_content"
     app:useCompatPadding="true"
     app:layout_constraintEnd_toEndOf="parent"
+    android:src="@drawable/ic_summary"
     app:layout_constraintBottom_toTopOf="@id/guess_controls"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
