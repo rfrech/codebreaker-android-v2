@@ -6,6 +6,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import androidx.room.util.TableInfo.Column;
 import java.util.Date;
 import java.util.UUID;
 
@@ -37,7 +38,6 @@ public class Game {
   @NonNull
   private String pool;
 
-  @NonNull
   private String code;
 
   @ColumnInfo(name = "code_length", index = true)
@@ -80,12 +80,11 @@ public class Game {
     this.pool = pool;
   }
 
-  @NonNull
   public String getCode() {
     return code;
   }
 
-  public void setCode(@NonNull String code) {
+  public void setCode(String code) {
     this.code = code;
   }
 
@@ -105,4 +104,5 @@ public class Game {
   public void setStarted(@NonNull Date started) {
     this.started = started;
   }
+
 }
