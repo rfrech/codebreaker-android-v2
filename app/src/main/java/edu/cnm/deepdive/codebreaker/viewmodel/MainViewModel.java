@@ -59,17 +59,6 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
     pending = new CompositeDisposable();
     startGame();
     testRoundTrip();
-
-  }
-
-  private void testRoundTrip() {
-    pending.add(
-    userRepository.getServerUserProfile()
-        .subscribe(
-            (user) -> Log.d(getClass().getSimpleName(), user.getDisplayName()),
-            throwable::postValue
-        )
-    );
   }
 
   public LiveData<Game> getGame() {
@@ -132,6 +121,16 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
   @OnLifecycleEvent(Event.ON_STOP)
   private void clearPending() {
     pending.clear();
+  }
+
+  private void testRoundTrip() {
+    pending.add(
+        userRepository.getServerUserProfile()
+            .subscribe(
+                (user) -> Log.d(getClass().getSimpleName(), user.getDisplayName()),
+                throwable::postValue
+            )
+    );
   }
 
 }
