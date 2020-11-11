@@ -10,9 +10,11 @@ import edu.cnm.deepdive.codebreaker.model.dao.GameDao;
 import edu.cnm.deepdive.codebreaker.model.dao.GuessDao;
 import edu.cnm.deepdive.codebreaker.model.dao.MatchDao;
 import edu.cnm.deepdive.codebreaker.model.dao.ScoreDao;
+import edu.cnm.deepdive.codebreaker.model.dao.UserDao;
 import edu.cnm.deepdive.codebreaker.model.entity.Game;
 import edu.cnm.deepdive.codebreaker.model.entity.Guess;
 import edu.cnm.deepdive.codebreaker.model.entity.Match;
+import edu.cnm.deepdive.codebreaker.model.entity.User;
 import edu.cnm.deepdive.codebreaker.model.view.Score;
 import edu.cnm.deepdive.codebreaker.service.CodebreakerDatabase.Converters;
 import java.nio.ByteBuffer;
@@ -20,7 +22,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Database(
-    entities = {Match.class, Game.class, Guess.class},
+    entities = {User.class, Match.class, Game.class, Guess.class},
     views = {Score.class},
     version = 1,
     exportSchema = true
@@ -48,6 +50,8 @@ public abstract class CodebreakerDatabase extends RoomDatabase {
 
   public abstract GuessDao getGuessDao();
 
+  public abstract UserDao getUserDao();
+
   private static class InstanceHolder {
 
     private static final CodebreakerDatabase INSTANCE =
@@ -73,15 +77,15 @@ public abstract class CodebreakerDatabase extends RoomDatabase {
       byte[] bytes = null;
       if (value != null) {
         ByteBuffer buffer = ByteBuffer.allocate(16);
-       buffer.putLong(value.getMostSignificantBits());
-       buffer.putLong(value.getLeastSignificantBits());
+        buffer.putLong(value.getMostSignificantBits())
+            .putLong(value.getLeastSignificantBits());
         bytes = buffer.array();
       }
       return bytes;
     }
 
     @TypeConverter
-    public static UUID bytesTOUUID(byte[] value) {
+    public static UUID bytesToUUID(byte[] value) {
       UUID uuid = null;
       if (value != null) {
         ByteBuffer buffer = ByteBuffer.wrap(value);
@@ -91,8 +95,5 @@ public abstract class CodebreakerDatabase extends RoomDatabase {
     }
 
   }
+
 }
-
-
-
-
